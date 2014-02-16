@@ -119,11 +119,47 @@ body {
   padding: 0;
   margin: 0;
 }
+@-webkit-keyframes animateBody {
+  from {
+    background-position: 0 bottom;
+  }
+  to {
+    background-position: 100% bottom;
+  }
+}
+@-moz-keyframes animateBody {
+  from {
+    background-position: 0 bottom;
+  }
+  to {
+    background-position: 100% bottom;
+  }
+}
+@keyframes animateBody {
+  from {
+    background-position: 0 bottom;
+  }
+  to {
+    background-position: 100% bottom;
+  }
+}
 body {
   background-image: url(images/flappybg.png);
   background-repeat: repeat-x;
   background-position: 0px bottom;
   background-color: #70c6d3;
+}
+body.play {
+  -webkit-animation-name: animateBody ;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-direction: reverse;
+  animation-name: animateBody ;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: reverse;
 }
 .terminalContainer {
   -webkit-border-radius: 5px;
