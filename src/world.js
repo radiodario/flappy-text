@@ -25,7 +25,7 @@ module.exports = function() {
       this.score = 0;
       this.term = term;
       this.bird = makeBird(this);
-      this.pipes.push(makePipe());
+      this.pipe = makePipe();
       clearInterval(this.interval);
     },
 
@@ -44,40 +44,35 @@ module.exports = function() {
         return
       this.term.echo('\n')
       this.time++;
-      this.term.echo("time is " + this.time + " bird " + this.bird + " pipe " + this.pipes[this.pipes.length-1]);
       this.bird.update()
-      for (var i = 0; i < this.pipes.length; i++) {
-        this.pipes[i].update();
-        this.bird.alive = !crashed(this.bird, this.pipes[i])
+      this.pipe.update();
+      this.bird.alive = !crashed(this.bird, this.pipe)
+      this.term.echo("time is " + this.time + " bird " + this.bird + " pipe " + this.pipe);
 
-        if (!this.bird.alive) {
-          document.body.classList.remove('play')
-          this.term.echo('\n********************');
-          this.renderCrash();
-          if (this.bird.y < 1) {
-            this.term.echo('You crashed on the floor');
-          } else {
-            this.term.echo('You crashed at ' + this.bird.y );
-          }
-          this.term.echo('********************\n');
-          this.term.echo('\ntype restart to try again.\n');
-          return
+      if (!this.bird.alive) {
+        document.body.classList.remove('play')
+        this.term.echo('\n********************');
+        this.renderCrash();
+        if (this.bird.y < 1) {
+          this.term.echo('You crashed on the floor');
+        } else {
+          this.term.echo('You crashed at ' + this.bird.y );
         }
-
-
-        if (this.pipes[i].x < this.bird.x) {
-          this.term.echo('\n********************');
-          this.term.echo('You crossed the pipes');
-          this.term.echo('********************\n');
-          this.score++;
-          this.pipes.splice(i, 1);
-        }
+        this.term.echo('********************\n');
+        this.term.echo('\ntype restart to try again.\n');
+        return
       }
 
-      // add a pipe if we're out of them
-      if (this.pipes.length < 1) {
-        this.pipes.push(makePipe(this.bird.x + 10))
+      // we've passed the pipe
+      if (this.pipe.x < this.bird.x) {
+        this.term.echo('\n********************');
+        this.term.echo('You crossed the pipes');
+        this.term.echo('********************\n');
+        this.score++;
+        this.pipe = makePipe(this.bird.x + 10);
       }
+
+
     },
 
     renderCrash: function() {
@@ -85,7 +80,7 @@ module.exports = function() {
         this.term.echo('\n\n');
         this.term.echo('                x\\      ');
         this.term.echo('__________________\\______');
-      } else if (this.bird.y >= this.pipes[this.pipes.length-1].top) {
+      } else if (this.bird.y >= this.pipe.top) {
         this.term.echo('\n\n');
         this.term.echo('                  | |      ');
         this.term.echo('                  | |      ');
@@ -99,7 +94,7 @@ module.exports = function() {
         this.term.echo('                  | |     ');
         this.term.echo('                  | |      ');
         this.term.echo('__________________| |______');
-      } else if (this.bird.y <= this.pipes[this.pipes.length-1].bot) {
+      } else if (this.bird.y <= this.pipe.bot) {
         this.term.echo('\n\n');
         this.term.echo('                  | |      ');
         this.term.echo('                  | |      ');
