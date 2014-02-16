@@ -271,6 +271,7 @@ module.exports = function() {
           this.term.echo('You crashed at ' + this.bird.y );
         }
         this.term.echo('********************\n');
+        this.term.echo('\nYour Score was '+ this.score);
         this.term.echo('\ntype restart to try again.\n');
         return
       }
