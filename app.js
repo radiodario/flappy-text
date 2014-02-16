@@ -156,7 +156,7 @@ module.exports = {
 
     if (world.bird.alive) {
       term.echo('You are at ' + world.bird)
-      term.echo('There are two pipes at ' + world.pipes[world.pipes.length-1])
+      term.echo('There are two pipes at ' + world.pipe)
       term.echo('Your score is ' + world.score);
     } else {
       term.echo('YOU ARE DEAD');
@@ -231,7 +231,6 @@ module.exports = function() {
     score: 0,
     time: 0,
     gravity: 7,
-    pipes: [],
     bird : makeBird(this),
     init : function (term) {
       this.time = 0;
