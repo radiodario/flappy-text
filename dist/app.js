@@ -13,7 +13,7 @@ var terminalOptions = {
   prompt: '> ',
   onInit: function(term) {
     term.echo(birdAscii);
-    term.echo('FLAPPY TEXT Adventure\ninteractive fiction - a science flap story.\n')
+    term.echo('FLAPPY TEXT Adventure.\n')
     commands._start(term);
   }
 };
@@ -112,7 +112,7 @@ var makePipe = function (x) {
 
     },
     toString : function () {
-      return 'at x: ' + this.x + ' with an opening between ' + this.top + ' and ' + this.bot;
+      return 'at x: ' + this.x + ' \nOpening between ' + this.top + ' and ' + this.bot;
     }
   }
 }
@@ -151,7 +151,7 @@ var world = {
 
 
       if (this.pipes[i].x < this.bird.x) {
-        term.echo('You crossed the pipe');
+        term.echo('You crossed the pipes');
         world.score++;
         this.pipes.splice(i, 1);
       }
@@ -170,6 +170,7 @@ module.exports = {
 
   _start : function (term) {
     world.init();
+    term.echo(pipeText);
     this.status(term);
   },
 
@@ -190,7 +191,7 @@ module.exports = {
 
     if (world.bird.alive) {
       term.echo('You are at ' + world.bird)
-      term.echo('There is a pipe ' + world.pipes[world.pipes.length-1])
+      term.echo('There are two pipes at ' + world.pipes[world.pipes.length-1])
       term.echo('Your score is ' + world.score);
     } else {
       term.echo('YOU ARE DEAD');

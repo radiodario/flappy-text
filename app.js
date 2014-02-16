@@ -12,7 +12,7 @@ var terminalOptions = {
   prompt: '> ',
   onInit: function(term) {
     term.echo(birdAscii);
-    term.echo('FLAPPY TEXT Adventure\ninteractive fiction - a science flap story.\n')
+    term.echo('FLAPPY TEXT Adventure.\n')
     commands._start(term);
   }
 };
