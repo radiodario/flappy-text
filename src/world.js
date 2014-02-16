@@ -49,6 +49,7 @@ module.exports = function() {
         this.bird.alive = !crashed(this.bird, this.pipes[i])
 
         if (!this.bird.alive) {
+          document.body.classList.remove('play')
           this.term.echo('\n********************');
           this.renderCrash();
           if (this.bird.y < 1) {

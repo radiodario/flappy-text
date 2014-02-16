@@ -18,10 +18,12 @@ module.exports = {
   },
 
   start : function(term) {
+    document.body.classList.add('play')
     world.start();
   },
 
   pause : function(term) {
+    document.body.classList.remove('play')
     world.pause();
     term.echo('GAME PAUSED');
   },
@@ -61,10 +63,11 @@ module.exports = {
       if (!(key.indexOf('_') === 0))
         commands.push(key)
     }
-    // term.echo(commands.join('\t'))
+
+    term.echo('Type start to start the game.');
+    term.echo('Type pause to pause at any time.');
+    term.echo('Type restart to start again after you die.');
     term.echo('Type flap to flap your wings.');
-    term.echo('Type start to start the game. type pause to pause at any time');
-    term.echo('Type restart to start again after you die');
   },
 
   restart: function(term) {
