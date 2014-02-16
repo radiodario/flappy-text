@@ -221,7 +221,7 @@ var crashed = function (bird, pipe) {
     return true
   }
   if ((pipe.x - bird.x) < 1) {
-    return (bird.y < pipe.bot) || (bird.y > pipe.top)
+    return (bird.y <= pipe.bot) || (bird.y >= pipe.top)
   }
   return false
 }
@@ -298,7 +298,7 @@ module.exports = function() {
         this.term.echo('\n\n');
         this.term.echo('                x\\      ');
         this.term.echo('__________________\\______');
-      } else if (this.bird.y > this.pipes[this.pipes.length-1].top) {
+      } else if (this.bird.y >= this.pipes[this.pipes.length-1].top) {
         this.term.echo('\n\n');
         this.term.echo('                  | |      ');
         this.term.echo('                  | |      ');
@@ -312,7 +312,7 @@ module.exports = function() {
         this.term.echo('                  | |     ');
         this.term.echo('                  | |      ');
         this.term.echo('__________________| |______');
-      } else if (this.bird.y < this.pipes[this.pipes.length-1].bot) {
+      } else if (this.bird.y <= this.pipes[this.pipes.length-1].bot) {
         this.term.echo('\n\n');
         this.term.echo('                  | |      ');
         this.term.echo('                  | |      ');
