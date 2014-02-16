@@ -66,7 +66,7 @@ module.exports = function() {
       // we've passed the pipe
       if (this.pipe.x < this.bird.x) {
         this.term.echo('\n********************');
-        this.term.echo('You crossed the pipes');
+        this.renderCross()
         this.term.echo('********************\n');
         this.score++;
         this.pipe = makePipe(this.bird.x + 10);
@@ -75,39 +75,53 @@ module.exports = function() {
 
     },
 
+    renderCross: function() {
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┻━┻      ');
+        this.term.echo('                           ');
+        this.term.echo('                   o\\     ');
+        this.term.echo('                  ┳━┳      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('------------------┛ ┗------');
+    },
+
+
     renderCrash: function() {
       if (this.bird.y <= 0) {
         this.term.echo('\n\n');
-        this.term.echo('                x\\      ');
-        this.term.echo('__________________\\______');
+        this.term.echo('                x\\        ');
+        this.term.echo('━━━━━━━━━━━━━━━━━━\\━━━━━━━');
       } else if (this.bird.y >= this.pipe.top) {
-        this.term.echo('\n\n');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                x\\| |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  ___      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                x\\┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┻━┻      ');
         this.term.echo('                           ');
         this.term.echo('                           ');
-        this.term.echo('                  ___      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |     ');
-        this.term.echo('                  | |      ');
-        this.term.echo('__________________| |______');
+        this.term.echo('                  ┳━┳      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('------------------┛ ┗------');
       } else if (this.bird.y <= this.pipe.bot) {
-        this.term.echo('\n\n');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  ___      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┻━┻      ');
         this.term.echo('                           ');
         this.term.echo('                           ');
-        this.term.echo('                  ___      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                x\\| |     ');
-        this.term.echo('                  | |      ');
-        this.term.echo('__________________| |______');
+        this.term.echo('                  ┳━┳      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                x\\┃ ┃     ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('------------------┛ ┗------');
       }
     }
   }
