@@ -4,7 +4,9 @@ var speed = 1;
 var gravity = 9;
 var time = 0;
 
-var pipeText = 'You are a bird. There are two pipes in front of you, creating an opening'
+var birdAscii = require('./birdAscii');
+
+var pipeText = 'You are a bird. There are two pipes in front of you, creating an opening.'
 
 var makeBird = function () {
   return {
@@ -104,6 +106,8 @@ module.exports = {
 
   _start : function (term) {
     world.init();
+    term.clear();
+    term.echo(birdAscii);
     term.echo(pipeText);
     this.status(term);
   },
@@ -148,6 +152,10 @@ module.exports = {
         commands.push(key)
     }
     term.echo(commands.join('\t'))
+  },
+
+  restart: function(term) {
+    this._start(term);
   }
 
 }

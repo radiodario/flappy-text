@@ -15,5 +15,6 @@ str += '   ,,????==,,~~~~~~~~,,~~~~~~~~~~,,     \n'
 str += '     ,,,,,,,,~~~~~~~~~~,,,,,,,,,,       \n'
 str += '             ,,,,,,,,,,                 \n'
 str += '             ,,,,,,,,,,                 \n'
+str += 'A FLAPPY TEXT Adventure.\n'
 
 module.exports = str;

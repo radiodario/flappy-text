@@ -1,9 +1,5 @@
 var commands = require('./src/commands');
 
-var birdAscii = require('./src/birdAscii');
-
-
-
 var terminalOptions = {
   greetings: false,
   name: 'flappy-text',
@@ -11,8 +7,6 @@ var terminalOptions = {
   width: 640,
   prompt: '> ',
   onInit: function(term) {
-    term.echo(birdAscii);
-    term.echo('FLAPPY TEXT Adventure.\n')
     commands._start(term);
   }
 };

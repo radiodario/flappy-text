@@ -1,10 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var commands = require('./src/commands');
 
-var birdAscii = require('./src/birdAscii');
-
-
-
 var terminalOptions = {
   greetings: false,
   name: 'flappy-text',
@@ -12,8 +8,6 @@ var terminalOptions = {
   width: 640,
   prompt: '> ',
   onInit: function(term) {
-    term.echo(birdAscii);
-    term.echo('FLAPPY TEXT Adventure.\n')
     commands._start(term);
   }
 };
@@ -43,7 +37,7 @@ $(document).ready(function() {
   $('#terminal').terminal(handleInput, terminalOptions);
 });
 
-},{"./src/birdAscii":2,"./src/commands":3}],2:[function(require,module,exports){
+},{"./src/commands":3}],2:[function(require,module,exports){
 var str = '';
 str += '               ,,,,,,,,,,,,             \n'
 str += '           ,,,,??????,,7777,,           \n'
@@ -61,6 +55,7 @@ str += '   ,,????==,,~~~~~~~~,,~~~~~~~~~~,,     \n'
 str += '     ,,,,,,,,~~~~~~~~~~,,,,,,,,,,       \n'
 str += '             ,,,,,,,,,,                 \n'
 str += '             ,,,,,,,,,,                 \n'
+str += 'A FLAPPY TEXT Adventure.\n'
 
 module.exports = str;
 },{}],3:[function(require,module,exports){
@@ -70,7 +65,9 @@ var speed = 1;
 var gravity = 9;
 var time = 0;
 
-var pipeText = 'You are a bird. There are two pipes in front of you, creating an opening'
+var birdAscii = require('./birdAscii');
+
+var pipeText = 'You are a bird. There are two pipes in front of you, creating an opening.'
 
 var makeBird = function () {
   return {
@@ -170,6 +167,8 @@ module.exports = {
 
   _start : function (term) {
     world.init();
+    term.clear();
+    term.echo(birdAscii);
     term.echo(pipeText);
     this.status(term);
   },
@@ -214,7 +213,11 @@ module.exports = {
         commands.push(key)
     }
     term.echo(commands.join('\t'))
+  },
+
+  restart: function(term) {
+    this._start(term);
   }
 
 }
-},{}]},{},[1,2,3])
+},{"./birdAscii":2}]},{},[1,2,3])
