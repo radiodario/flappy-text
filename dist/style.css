@@ -109,7 +109,8 @@ body {
 body {
   background-image: url(images/flappybg.png);
   background-repeat: repeat-x;
-  background-color: #77ea78;
+  background-position: 0px bottom;
+  background-color: #70c6d3;
 }
 .terminalContainer {
   position: absolute;
