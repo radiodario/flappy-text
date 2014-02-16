@@ -1,3 +1,10 @@
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
+
 /*
  * This css file is part of jquery terminal
  *
@@ -100,6 +107,12 @@
 }
 
 @import 'jquery.terminal.css';
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
 html,
 body {
   height: 100%;
