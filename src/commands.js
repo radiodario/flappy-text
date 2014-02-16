@@ -18,8 +18,10 @@ module.exports = {
   },
 
   start : function(term) {
-    document.body.classList.add('play')
-    world.start();
+    if (world.bird.alive) {
+      document.body.classList.add('play')
+      world.start();
+    }
   },
 
   pause : function(term) {
