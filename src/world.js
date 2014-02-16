@@ -26,9 +26,11 @@ module.exports = function() {
       this.term = term;
       this.bird = makeBird(this);
       this.pipes.push(makePipe());
+      clearInterval(this.interval);
     },
 
     start : function(term) {
+      clearInterval(this.interval);
       this.update();
       this.interval = setInterval(this.update.bind(this), 2000);
     },
