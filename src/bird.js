@@ -37,15 +37,14 @@ module.exports = function (world) {
       this.dt++;
       if (!this.alive)
         return;
-      this.x += this.disx();
-      this.y += this.disy();
+      this.x += this.vx();
+      this.y += this.vy();
     },
 
     flap : function () {
       if (!this.alive)
         return;
       this.dt = 0;
-      // this.θ = 80 * Math.PI / 180; // our angle is 70 degrees
       this.y += 20;
     }
   }

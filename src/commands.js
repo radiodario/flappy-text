@@ -10,24 +10,29 @@ var world = require('./world')();
 module.exports = {
 
   _start : function (term) {
-    world.init();
+    world.init(term);
     term.clear();
     term.echo(birdAscii);
     term.echo(pipeText);
     this.status(term);
   },
 
-  flap : function (term) {
-    term.echo('You flapped your wings')
-    world.bird.flap();
-    world.update(term);
-    this.status(term);
+  start : function(term) {
+    world.start();
   },
 
-  wait: function (term) {
-    term.echo('You waited, feeling the air rushing past your face')
-    world.update(term);
-    this.status(term);
+  pause : function(term) {
+    world.pause();
+    term.echo('GAME PAUSED');
+  },
+
+  flap : function (term) {
+    if (world.bird.alive) {
+      world.bird.flap();
+      term.echo('You flapped your wings: ' + world.bird);
+    } else {
+      term.echo('The bird tried to flap its wings, but it was dead');
+    }
   },
 
   status: function (term) {
@@ -49,18 +54,22 @@ module.exports = {
   },
 
   help: function(term) {
-    term.echo('You can:')
+    // term.echo('You can:')
     var commands = []
     for (key in this) {
       // don't add private methods
       if (!(key.indexOf('_') === 0))
         commands.push(key)
     }
-    term.echo(commands.join('\t'))
+    // term.echo(commands.join('\t'))
+    term.echo('Type flap to flap your wings.');
+    term.echo('Type start to start the game. type pause to pause at any time');
+    term.echo('Type restart to start again after you die');
   },
 
   restart: function(term) {
     this._start(term);
+    this.start(term);
   }
 
 }
