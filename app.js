@@ -289,52 +289,52 @@ module.exports = function() {
     },
 
     renderCross: function() {
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  ___      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┻━┻      ');
         this.term.echo('                           ');
         this.term.echo('                   o\\     ');
-        this.term.echo('                  ___      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('__________________| |______');
+        this.term.echo('                  ┳━┳      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('------------------┛ ┗------');
     },
 
 
     renderCrash: function() {
       if (this.bird.y <= 0) {
         this.term.echo('\n\n');
-        this.term.echo('                x\\      ');
-        this.term.echo('__________________\\______');
+        this.term.echo('                x\\        ');
+        this.term.echo('━━━━━━━━━━━━━━━━━━\\━━━━━━━');
       } else if (this.bird.y >= this.pipe.top) {
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                x\\| |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  ___      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                x\\┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┻━┻      ');
         this.term.echo('                           ');
         this.term.echo('                           ');
-        this.term.echo('                  ___      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |     ');
-        this.term.echo('                  | |      ');
-        this.term.echo('__________________| |______');
+        this.term.echo('                  ┳━┳      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('------------------┛ ┗------');
       } else if (this.bird.y <= this.pipe.bot) {
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                  ___      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                  ┻━┻      ');
         this.term.echo('                           ');
         this.term.echo('                           ');
-        this.term.echo('                  ___      ');
-        this.term.echo('                  | |      ');
-        this.term.echo('                x\\| |     ');
-        this.term.echo('                  | |      ');
-        this.term.echo('__________________| |______');
+        this.term.echo('                  ┳━┳      ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('                x\\┃ ┃     ');
+        this.term.echo('                  ┃ ┃      ');
+        this.term.echo('------------------┛ ┗------');
       }
     }
   }
