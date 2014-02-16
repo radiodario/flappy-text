@@ -126,6 +126,9 @@ body {
   background-color: #70c6d3;
 }
 .terminalContainer {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   position: absolute;
   top: 0px;
   bottom: 0px;

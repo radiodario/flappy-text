@@ -37,7 +37,60 @@ $(document).ready(function() {
   $('#terminal').terminal(handleInput, terminalOptions);
 });
 
-},{"./src/commands":3}],2:[function(require,module,exports){
+},{"./src/commands":4}],2:[function(require,module,exports){
+module.exports = function (world) {
+  return {
+    alive: true,
+    x : 0,
+    y : 50,
+    v0 : 2,
+    mass: 0.08,
+    θ: 0 * Math.PI / 180, // initial angle is zero
+    dt: 0, // time since last flap
+    // x component of velocity
+    vx : function () {
+      return this.v0 * Math.cos(this.θ);
+    },
+    // y component of velocity
+    vy : function () {
+      return this.v0 * Math.sin(this.θ) - world.gravity * this.dt;
+    },
+    // x displacement
+    disx : function() {
+      return this.v0 * this.dt * Math.cos(this.θ);
+    },
+    // the y displacement
+    disy : function() {
+      return (this.v0 * this.dt * Math.sin(this.θ)) - (.5 * world.gravity * (this.dt*this.dt))
+    },
+    px : function() {
+      return this.vx() * this.mass;
+    },
+    py : function() {
+      return this.vy() * this.mass;
+    },
+    toString: function() {
+      return 'x: ' + Math.floor(this.x) + ', y: ' + Math.floor(this.y);
+    },
+
+    update : function () {
+      this.dt++;
+      if (!this.alive)
+        return;
+      this.x += this.disx();
+      this.y += this.disy();
+    },
+
+    flap : function () {
+      if (!this.alive)
+        return;
+      this.dt = 0;
+      // this.θ = 80 * Math.PI / 180; // our angle is 70 degrees
+      this.y += 20;
+    }
+  }
+}
+},{}],3:[function(require,module,exports){
 var str = '';
 str += '               ,,,,,,,,,,,,             \n'
 str += '           ,,,,??????,,7777,,           \n'
@@ -58,109 +111,14 @@ str += '             ,,,,,,,,,,                 \n'
 str += 'A FLAPPY TEXT Adventure.\n'
 
 module.exports = str;
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var state = [];
-
-var speed = 1;
-var gravity = 9;
-var time = 0;
 
 var birdAscii = require('./birdAscii');
 
-var pipeText = 'You are a bird. There are two pipes in front of you, creating an opening.'
+var pipeText = 'You are a bird. There are two pipes in front of you.'
 
-var makeBird = function () {
-  return {
-    x : 0,
-    y : 50,
-    alive: true,
-    toString: function() {
-      return 'x: ' + this.x + ', y: ' + this.y;
-    },
-
-    update : function () {
-      if (!this.alive)
-        return;
-      this.y--;
-      this.x += speed;
-    },
-
-    flap : function () {
-      if (!this.alive)
-        return;
-      this.y += 5;
-      this.x += 5;
-    }
-  }
-}
-
-
-var makePipe = function (x) {
-  offset = Math.floor(Math.random()*2)*10 + 10
-  if (Math.random() < .5) offset = -1 * offset;
-
-  x = x || 10;
-
-  return {
-    x: x,
-    top: 60 + offset,
-    bot: 40 + offset,
-    update : function(){
-
-    },
-    toString : function () {
-      return 'at x: ' + this.x + ' \nOpening between ' + this.top + ' and ' + this.bot;
-    }
-  }
-}
-
-
-var crashed = function (bird, pipe) {
-  if (bird.y < 1) {
-    return true
-  }
-  if ((pipe.x - bird.x) < 1) {
-    return (bird.y < pipe.bot) || (bird.y > pipe.top)
-  }
-  return false
-}
-
-var world = {
-  score: 0,
-  pipes: [],
-  bird : makeBird(),
-  init : function () {
-    this.bird = makeBird()
-    this.pipes.push(makePipe())
-  },
-
-  update: function(term) {
-    time++;
-    this.bird.update()
-    for (var i = 0; i < this.pipes.length; i++) {
-      this.pipes[i].update();
-      this.bird.alive = !crashed(this.bird, this.pipes[i])
-
-      if (!this.bird.alive) {
-        term.echo('You crashed at ' + this.bird.y );
-        return
-      }
-
-
-      if (this.pipes[i].x < this.bird.x) {
-        term.echo('You crossed the pipes');
-        world.score++;
-        this.pipes.splice(i, 1);
-      }
-    }
-
-    // add a pipe if we're out of them
-    if (this.pipes.length < 1) {
-      this.pipes.push(makePipe(this.bird.x + 10))
-    }
-  }
-
-};
+var world = require('./world')();
 
 
 module.exports = {
@@ -220,4 +178,79 @@ module.exports = {
   }
 
 }
-},{"./birdAscii":2}]},{},[1,2,3])
+},{"./birdAscii":3,"./world":6}],5:[function(require,module,exports){
+module.exports = function (x) {
+  offset = Math.floor(Math.random()*2)*10 + 10
+  if (Math.random() < .5) offset = -1 * offset;
+
+  x = x || 10;
+
+  return {
+    x: x,
+    top: 60 + offset,
+    bot: 40 + offset,
+    update : function(){
+
+    },
+    toString : function () {
+      return 'at x: ' + this.x + ' \nThere is an opening between ' + this.top + ' and ' + this.bot;
+    }
+  }
+}
+},{}],6:[function(require,module,exports){
+
+var makeBird = require('./bird');
+var makePipe = require('./pipes');
+
+
+var crashed = function (bird, pipe) {
+  if (bird.y < 1) {
+    return true
+  }
+  if ((pipe.x - bird.x) < 1) {
+    return (bird.y < pipe.bot) || (bird.y > pipe.top)
+  }
+  return false
+}
+
+module.exports = function() {
+  return {
+    score: 0,
+    time: 0,
+    gravity: 7,
+    pipes: [],
+    bird : makeBird(this),
+    init : function () {
+      this.bird = makeBird(this);
+      this.pipes.push(makePipe());
+    },
+
+    update: function(term) {
+      this.time++;
+      this.bird.update()
+      for (var i = 0; i < this.pipes.length; i++) {
+        this.pipes[i].update();
+        this.bird.alive = !crashed(this.bird, this.pipes[i])
+
+        if (!this.bird.alive) {
+          term.echo('You crashed at ' + this.bird.y );
+          return
+        }
+
+
+        if (this.pipes[i].x < this.bird.x) {
+          term.echo('You crossed the pipes');
+          this.score++;
+          this.pipes.splice(i, 1);
+        }
+      }
+
+      // add a pipe if we're out of them
+      if (this.pipes.length < 1) {
+        this.pipes.push(makePipe(this.bird.x + 10))
+      }
+    }
+  }
+
+}
+},{"./bird":2,"./pipes":5}]},{},[1,2,3,4,5,6])
