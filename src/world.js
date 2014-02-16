@@ -67,8 +67,10 @@ module.exports = function() {
       if (this.pipe.x < this.bird.x) {
         this.term.echo('\n********************');
         this.renderCross()
+        this.term.echo('You Crossed the pipe');
         this.term.echo('********************\n');
         this.score++;
+        this.term.echo('\nYour Score is '+ this.score);
         this.pipe = makePipe(this.bird.x + 10);
       }
 
